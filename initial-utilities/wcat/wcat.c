@@ -2,20 +2,24 @@
 // Created by Quentin Novinger on 1/15/20.
 //
 #include <stdio.h>
+#include <stdlib.h>
+#define BUFF 180
 
 int main(int argc, char *argv[]) {
 
     for (int i = 1; i < argc; i++) {
-        FILE *f = fopen(argv[i], 'r');
+        FILE *f = fopen(argv[i], "r");
         if (f == NULL) {
-            printf("cannot open file\n");
+            printf("wcat: cannot open file\n");
             exit(1);
         }
-        char *line = NULL;
-        fgets(f)
-        while (line != NULL) {
+
+        char line[BUFF];
+        char *suc = fgets(line, BUFF, f);
+
+        while (suc != NULL) {
             printf("%s", line);
-            line = fgets(f);
+            suc = fgets(line, BUFF, f);
         }
     }
 

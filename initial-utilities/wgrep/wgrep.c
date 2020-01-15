@@ -40,7 +40,8 @@ int main(int argc, char *argv[]) {
                     printf("%s", line);
                 }
             }
-
+            fclose(f);
         }
     }
+    return 0;
 }
