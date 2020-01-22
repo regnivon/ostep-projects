@@ -24,10 +24,23 @@ int main(int argc, char *argv[]) {
         if(fread(buff, fSize, 1, f) > 0) {
             int place = 1;
             char cur = buff[0];
+            int curCharCount = 1;
             while(place < fSize) {
+                if(buff[place] == cur) {
+                    curCharCount++;
+                } else {
+                    fwrite(&curCharCount, 4, 1, stdout);
+                    fputc(cur, stdout);
+
+                    //printf("%d", curCharCount);
+                    cur = buff[place];
+                    curCharCount = 1;
+                }
                 place+=1;
             }
         }
+        fclose(f);
+        free(buff);
     }
-
+    return 0;
 }
