@@ -11,6 +11,8 @@ int main(int argc, char *argv[]) {
         puts("wzip: file1 [file2 ...]");
         exit(1);
     }
+    char cur;
+    int curCharCount = 1;
     for(int i = 1; i < argc; i++) {
         FILE *f = fopen(argv[i], "r");
         if (f == NULL) {
@@ -23,18 +25,23 @@ int main(int argc, char *argv[]) {
         char *buff = malloc(fSize * sizeof(char));
         if(fread(buff, fSize, 1, f) > 0) {
             int place = 1;
-            char cur = buff[0];
-            int curCharCount = 1;
-            while(place < fSize) {
+            cur = buff[0];
+            while(place <= fSize) {
                 if(buff[place] == cur) {
                     curCharCount++;
                 } else {
-                    fwrite(&curCharCount, 4, 1, stdout);
-                    fputc(cur, stdout);
+                    //solution for when we have multiple files where the last char in a file
+                    //is the same as the first char in the next
+                    if(place != fSize || i + 1 == argc) {
+                        fwrite(&curCharCount, 4, 1, stdout);
+                        fputc(cur, stdout);
 
-                    //printf("%d", curCharCount);
-                    cur = buff[place];
-                    curCharCount = 1;
+                        //printf("%d", curCharCount);
+                        cur = buff[place];
+                        curCharCount = 1;
+                    } else {
+                        curCharCount+=1;
+                    }
                 }
                 place+=1;
             }
