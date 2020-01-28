@@ -16,9 +16,6 @@ int main(int argc, char *argv[]) {
             printf("wunzip: cannot open file\n");
             exit(1);
         }
-        fseek(f, 0, SEEK_END);
-        long fSize = ftell(f);
-        rewind(f);
         int *buff = malloc(1 * sizeof(int));
         char* b2 = malloc(1 * sizeof(char));
         while (fread(buff, 4, 1, f) > 0) {
