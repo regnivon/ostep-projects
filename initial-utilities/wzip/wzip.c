@@ -35,8 +35,6 @@ int main(int argc, char *argv[]) {
                     if(place != fSize || i + 1 == argc) {
                         fwrite(&curCharCount, 4, 1, stdout);
                         fputc(cur, stdout);
-
-                        //printf("%d", curCharCount);
                         cur = buff[place];
                         curCharCount = 1;
                     } else {
